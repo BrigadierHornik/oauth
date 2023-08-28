@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  nginx:
+    build: ./image/web/
+    ports:
+      - "3000:80"
+    volumes:
+          - ./app:/app
+  php:
+    build: ./image/php/
+    volumes:
+          - ./app:/app
+    tty: true
+    environment:
+      TZ: Europe/Prague
+  database:
+    image: "mysql:8.0.31"
+    environment:
+       MYSQL_ROOT_PASSWORD: heslo123
+       MYSQL_DATABASE: app
+       MYSQL_USER: admin
+       MYSQL_PASSWORD: heslo123
+       TZ: Europe/Prague
+    volumes:
+      - ./mysql:/var/lib/mysql
+  phpmyadmin:
+    image: "phpmyadmin:5.2.0"
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: database
+#     PMA_USER: root
+#     PMA_PASSWORD: heslo123
