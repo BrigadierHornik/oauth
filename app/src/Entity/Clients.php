@@ -29,6 +29,9 @@ class Clients
     #[ORM\Column(type: Types::TEXT)]
     private ?string $password = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $redirectUri = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Clients
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getRedirectUri(): ?string
+    {
+        return $this->redirectUri;
+    }
+
+    public function setRedirectUri(string $redirectUri): static
+    {
+        $this->redirectUri = $redirectUri;
 
         return $this;
     }
